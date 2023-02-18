@@ -1,4 +1,4 @@
-﻿namespace API.Helpers
+﻿namespace Infrastructure.Identity.Helpers
 {
     public class AppSettings
     {

@@ -1,8 +1,8 @@
-﻿using API.Helpers;
-using API.Utils;
-using Core.Entities.Identity;
+﻿using Core.Entities.Identity;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Identity.Helpers;
+using Infrastructure.Identity.Utils;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Services

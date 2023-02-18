@@ -1,6 +1,6 @@
 ﻿using Core.Entities.Identity;
 
-namespace API.Utils
+namespace Infrastructure.Identity.Utils
 {
     public interface IJwtUtils
     {

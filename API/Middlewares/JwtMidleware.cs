@@ -1,6 +1,4 @@
-﻿using API.Helpers;
-using API.Utils;
-using Core.Interfaces;
+﻿using Infrastructure.Identity.Helpers;
 using Microsoft.Extensions.Options;
 
 namespace API.Middlewares

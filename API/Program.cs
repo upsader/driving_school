@@ -1,14 +1,13 @@
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using API.Helpers;
 using Core.Entities.Identity;
 using API.Extensions;
-using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure.Identity;
 using Core.Interfaces;
 using Infrastructure.Services;
-using API.Utils;
+using Infrastructure.Identity.Helpers;
+using Infrastructure.Identity.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
