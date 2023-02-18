@@ -6,6 +6,9 @@ using API.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure.Identity;
+using Core.Interfaces;
+using Infrastructure.Services;
+using API.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +19,8 @@ builder.Services.AddDbContext<DataContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.AddScoped<IJwtUtils, JwtUtils>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddCors();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
