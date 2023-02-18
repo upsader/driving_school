@@ -1,16 +1,21 @@
-using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using BCrypt;
-using Microsoft.Extensions.Configuration;
+using API.Helpers;
+using Core.Entities.Identity;
+using API.Extensions;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddDbContext<DataContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddCors();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,49 +37,28 @@ app.UseCors(x => x
         .AllowAnyHeader());
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
-var testUsers = new List<User>
-    {
-        new User { 
-            Id = 1, 
-            FirstName = "Admin", 
-            LastName = "Admin",
-            YearOfBirth = 28,
-            MobilePhone = "27168893",
-            RegistrationDate = DateTime.UtcNow,
-            EmailAddress = "admin@gmail.com", 
-            Address = "Skolas 8",
-            City = "Salaspils",
-            Role = Role.Admin,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin"),
-
-        },
-        new User {
-            Id = 2,
-            FirstName = "Student",
-            LastName = "Student",
-            YearOfBirth = 38,
-            MobilePhone = "27178833",
-            RegistrationDate = DateTime.UtcNow,
-            EmailAddress = "student@gmail.com",
-            Address = "Skolas 15",
-            City = "Salaspils",
-            TrainingCategory = "B",
-            Mark = "Theory",
-            Role = Role.Student,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword("student"),
-        }
-    };
-
 using var scope = app.Services.CreateScope();
-var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-dataContext.Users.AddRange(testUsers);
-dataContext.SaveChanges();
+var services = scope.ServiceProvider;
+var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+var context = services.GetRequiredService<DataContext>();
+var identityContext = services.GetRequiredService<IdentityContext>();
+var userManager = services.GetRequiredService<UserManager<User>>();
+try
+{
+    await context.Database.MigrateAsync();
+    await identityContext.Database.MigrateAsync();
+    await DataContextSeed.SeedDataAsync(context);
+    await IdentityContextSeed.SeedUsersAsync(userManager);
+}
+catch (Exception ex)
+{
+    var logger = loggerFactory.CreateLogger<Program>();
+    logger.LogError(ex, "An error occured during migration");
+}
 
 app.Run();

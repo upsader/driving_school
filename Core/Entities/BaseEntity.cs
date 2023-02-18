@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public enum Role
+    public class BaseEntity
     {
-        Admin,
-        Consultant,
-        Teacher,
-        Instructor,
-        Student
+        public int Id { get; set; }
     }
 }
