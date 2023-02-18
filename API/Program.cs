@@ -8,6 +8,7 @@ using Core.Interfaces;
 using Infrastructure.Services;
 using Infrastructure.Identity.Helpers;
 using Infrastructure.Identity.Utils;
+using API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,8 @@ app.UseCors(x => x
         .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader());
+
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseRouting();

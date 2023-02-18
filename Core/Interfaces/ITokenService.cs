@@ -10,5 +10,6 @@ namespace Core.Interfaces
     public interface ITokenService
     {
         string CreateToken(User user);
+        User GetByEmail(string email);
     }
 }

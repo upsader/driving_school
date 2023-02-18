@@ -1,4 +1,6 @@
-﻿using Core.Entities;
+﻿using API.Helpers;
+using Core.Entities;
+using Core.Entities.Identity;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +17,7 @@ namespace API.Controllers
             _context = context;
         }
 
+        [Authorize(Role.Admin)]
         [HttpGet]
         public async Task<ActionResult<List<Student>>> GetStudent()
         {

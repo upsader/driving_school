@@ -5,6 +5,6 @@ namespace Infrastructure.Identity.Utils
     public interface IJwtUtils
     {
         public string GenerateJwtToken(User user);
-        public int? ValidateJwtToken(string token);
+        public string? ValidateJwtToken(string token);
     }
 }

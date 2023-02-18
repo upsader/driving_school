@@ -1,4 +1,6 @@
-﻿using Infrastructure.Identity.Helpers;
+﻿using Core.Interfaces;
+using Infrastructure.Identity.Helpers;
+using Infrastructure.Identity.Utils;
 using Microsoft.Extensions.Options;
 
 namespace API.Middlewares
@@ -14,17 +16,16 @@ namespace API.Middlewares
             _appSettings = appSettings.Value;
         }
 
-        //public async Task Invoke(HttpContext context, ITokenService tokenService, IJwtUtils jwtUtils)
-        //{
-        //    var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-        //    var userId = jwtUtils.ValidateJwtToken(token);
-        //    if (userId != null)
-        //    {
-        //        // attach user to context on successful jwt validation
-        //        context.Items["User"] = tokenService.GetById(userId.Value);
-        //    }
+        public async Task Invoke(HttpContext context, ITokenService tokenService, IJwtUtils jwtUtils)
+        {
+            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var email = jwtUtils.ValidateJwtToken(token);
+            if (email != null)
+            {
+                context.Items["User"] = tokenService.GetByEmail(email);
+            }
 
-        //    await _next(context);
-        //}
+            await _next(context);
+        }
     }
 }

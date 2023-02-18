@@ -1,7 +1,7 @@
 ﻿using API.Dtos;
+using API.Helpers;
 using Core.Entities.Identity;
 using Core.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +20,6 @@ namespace API.Controllers
             _tokenService = tokenService;
         }
 
-        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
@@ -34,7 +33,7 @@ namespace API.Controllers
             
         }
 
-        [API.Helpers.Authorize]
+        [Authorize(Role.Admin)]
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
