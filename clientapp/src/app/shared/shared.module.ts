@@ -19,13 +19,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { DataService } from './services/data.service';
-import { RouterModule } from '@angular/router';
-
-
 
 @NgModule({
   declarations: [
-    AppHeaderComponent
+    AppHeaderComponent,
   ],
   imports: [
     CommonModule,

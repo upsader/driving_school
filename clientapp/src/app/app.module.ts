@@ -11,7 +11,6 @@ import { AccountModule } from './account/account.module';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StudentsRoutingModule } from './students/students-routing.module';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [

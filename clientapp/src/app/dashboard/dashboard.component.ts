@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IUser } from '../shared/models/user';
+import { AuthenticationService } from '../shared/services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +10,9 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
 
-  
-  constructor(private _router: Router) {
-    
+  constructor(private _router: Router, public authService: AuthenticationService) {
   }
+
   studentsList(){
     this._router.navigate(['/students']);
   }
