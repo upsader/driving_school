@@ -1,0 +1,15 @@
+<mat-toolbar class="primary" role="heading">
+    <a class="logo" href="#">
+        <span>logo</span>
+    </a>
+    <span class="example-spacer"></span>
+  
+    <ng-container *ngIf="(authService.authenticationChallenge$ | async) as IUser">
+      <span>{{IUser.username}}</span>
+      <button mat-icon-button title="logout"
+      (click)="logoutClicked($event)">
+      <mat-icon>logout</mat-icon>
+    </button>
+    </ng-container>
+</mat-toolbar>
+  
