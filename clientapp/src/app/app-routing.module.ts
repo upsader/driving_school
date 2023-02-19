@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'login', component: AccountComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'users', loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule)},
   { path: 'students', loadChildren: () => import('./students/students.module').then(mod => mod.StudentsModule)},
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

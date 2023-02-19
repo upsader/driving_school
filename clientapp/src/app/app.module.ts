@@ -10,8 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccountModule } from './account/account.module';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { StudentsComponent } from './students/students.component';
 import { StudentsRoutingModule } from './students/students-routing.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [

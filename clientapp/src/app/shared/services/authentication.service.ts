@@ -29,10 +29,9 @@ export class AuthenticationService {
         this._busy.busy();
         const headers = this.setHeaders();
         setTimeout(() => {
-            return this._http.post<IUser>(this.baseUrl + 'api/user/login', body, { headers })
+            return this._http.post<IUser>(this.baseUrl + 'api/users/login', body, { headers })
                 .subscribe({
                     next: (response: IUser) => {
-                        console.log(response);
                         this.authenticationSource.next(response);
                         this._storage.store('user', response);
                         this._storage.store('token', response.token)

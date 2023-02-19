@@ -15,4 +15,7 @@ export class DashboardComponent {
   studentsList(){
     this._router.navigate(['/students']);
   }
+  usersList(){
+    this._router.navigate(['/users']);
+  }
 }

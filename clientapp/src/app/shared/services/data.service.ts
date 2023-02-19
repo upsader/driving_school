@@ -33,6 +33,18 @@ export class DataService {
         return this.doPost(url, data, params, loading);
     }
 
+    delete(url: string, email: string, params?: any, loading: boolean = false): Observable<Response>  {
+        if (loading) this._busy.busy();
+        let options = {};
+        this.setHeaders(options);
+
+        return this._http.delete<Response>(`${url}/?email=${email}`, options)
+            .pipe(
+                catchError(this.handleError),
+                finalize(() => loading ? this._busy.idle() : '')
+            )
+    }
+
     public doPost(url: string, data: any, params?: any, loading: boolean = false): Observable<Response> {
         if (loading) this._busy.busy();
         let options = {};

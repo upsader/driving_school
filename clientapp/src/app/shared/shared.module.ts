@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { DataService } from './services/data.service';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -43,6 +44,7 @@ import { DataService } from './services/data.service';
     MatCardModule,
   ],
   exports: [
+    CommonModule,
     AppHeaderComponent,
     ReactiveFormsModule,
     MatToolbarModule,

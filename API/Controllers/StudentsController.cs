@@ -22,14 +22,38 @@ namespace API.Controllers
         public async Task<ActionResult<List<Student>>> GetStudent()
         {
             var students = await _context.Students.ToListAsync();
+            if (students != null)
+            {
+                foreach (var student in students)
+                {
+                    student.Address = await _context.Addresses.FindAsync(student?.AddressId);
+                    student.TrainingCategory = await _context.TrainingCategories.FindAsync(student?.TrainingCategoryId);
+                    if (student?.MarkId != null)
+                    {
+                        student.Mark = await _context.Marks.FindAsync(student?.MarkId);
+                    }
+                }
+            }
+            
             return Ok(students);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            var students = await _context.Students.FindAsync(id);
-            return Ok(students);
+            var student = await _context.Students.FindAsync(id);
+
+            if (student != null)
+            {
+                student.Address = await _context.Addresses.FindAsync(student?.AddressId);
+                student.TrainingCategory = await _context.TrainingCategories.FindAsync(student?.TrainingCategoryId);
+                if (student?.MarkId != null)
+                {
+                    student.Mark = await _context.Marks.FindAsync(student?.MarkId);
+                }
+            }
+            
+            return Ok(student);
         }
     }
 }

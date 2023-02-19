@@ -1,8 +1,8 @@
 ﻿using Core.Entities.Identity;
 
-namespace API.Dtos
+namespace API.Dtos.Users
 {
-    public class RegisterDto
+    public class CreateDto
     {
         public string Username { get; set; }
         public string Email { get; set; }
