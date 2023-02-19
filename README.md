@@ -1,1 +1,2 @@
-# driving_school
+admin@gmail.com
+Pa$$w0rd
